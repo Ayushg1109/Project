@@ -1,21 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 class Game2048 {
 private:
     vector<vector<int>> board;
     int size;
     bool gameOver;
-
 public:
-    Game2048(int s) : size(s), gameOver(false) {
+    Game2048(int s):size(s), gameOver(false) {
         board.resize(size, vector<int>(size, 0));
         srand(time(0));
         addNewTile();
         addNewTile();
     }
-
-    void displayBoard() {
+ void displayBoard() {
         for (const auto& row : board) {
             for (int tile : row) {
                 if (tile == 0) {
@@ -168,14 +165,12 @@ public:
 int main() {
     int boardSize = 4;
     Game2048 game(boardSize);
-
-    char move;
+ char move;
     while (!game.isGameOver()) {
         game.displayBoard();
         cout << "Enter your move (w/a/s/d): ";
         cin >> move;
         game.move(move);
     }
-
-    return 0;
+ return 0;
 }
