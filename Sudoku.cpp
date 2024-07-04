@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-const int N = 9;  // Size of Sudoku grid
+const int N = 9;
 
 class Sudoku {
 private:
@@ -12,8 +12,6 @@ public:
     Sudoku(vector<vector<int>>& initial) {
         board = initial;
     }
-
-    // Function to print the Sudoku board
     void printBoard() {
         for (int i = 0; i < N; ++i) {
             for (int j = 0; j < N; ++j) {
@@ -27,29 +25,24 @@ public:
         }
     }
 
-    // Function to check if a number can be placed in a cell
     bool canPlaceNumber(int row, int col, int num) {
-        // Check row and column
+
         for (int i = 0; i < N; ++i) {
             if (board[row][i] == num || board[i][col] == num)
                 return false;
         }
-        // Check 3x3 sub-grid
         int startRow = row - row % 3;
         int startCol = col - col % 3;
         for (int i = startRow; i < startRow + 3; ++i) {
             for (int j = startCol; j < startCol + 3; ++j) {
                 if (board[i][j] == num)
                     return false;
-            }
-        }
+            }}
         return true;
     }
 
-    // Function to solve Sudoku using backtracking
     bool solveSudoku() {
         int row, col;
-        // Find an empty cell
         bool foundEmpty = false;
         for (row = 0; row < N; ++row) {
             for (col = 0; col < N; ++col) {
@@ -61,17 +54,14 @@ public:
             if (foundEmpty)
                 break;
         }
-        // If no empty cell is found, Sudoku is solved
+    
         if (!foundEmpty)
             return true;
-        // Try placing numbers 1-9 in the empty cell
         for (int num = 1; num <= 9; ++num) {
             if (canPlaceNumber(row, col, num)) {
                 board[row][col] = num;
-                // Recursively try to solve Sudoku
                 if (solveSudoku())
                     return true;
-                // Backtrack
                 board[row][col] = 0;
             }
         }
@@ -101,7 +91,7 @@ int main() {
         cout << "\nSudoku Solved:" << endl;
         game.printBoard();
     } else {
-        cout << "\nNo solution exists." << endl;
+        cout << "No Solution." << endl;
     }
 
     return 0;
